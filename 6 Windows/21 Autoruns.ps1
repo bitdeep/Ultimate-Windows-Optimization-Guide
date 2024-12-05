@@ -1,3 +1,22 @@
+<#
+.SYNOPSIS
+    Removes and disables automatic startup applications and services.
+
+.DESCRIPTION
+    This script performs the following actions:
+    - Clears all startup registry keys for current and local machine
+    - Removes existing startup folders
+    - Recreates empty startup folders
+    - Disables Microsoft Edge services and removes related tasks
+    - Disables Google Chrome services and removes related tasks
+    - Downloads and launches Autoruns utility from Sysinternals
+
+.NOTES
+    - Requires administrative privileges
+    - Modifies system registry and scheduled tasks
+    - Helps reduce background applications and improve system performance
+#>
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

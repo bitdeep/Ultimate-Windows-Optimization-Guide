@@ -1,3 +1,11 @@
+# Script: Multiplane Overlay (MPO) and Windowed Game Optimizations
+# Description: Allows users to toggle Windows Multiplane Overlay and DirectX windowed game optimizations
+# - Option 1 (On): Enables Multiplane Overlay and game optimizations
+# - Option 2 (Off): Disables Multiplane Overlay and game optimizations
+# - Option 3 (Default): Enables Multiplane Overlay but disables game optimizations
+# Requires Administrator privileges to modify system and user registry settings
+# Restart is recommended after applying changes
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

@@ -1,3 +1,14 @@
+# Script: Start Menu and Taskbar Configuration
+# Description: 
+#   - Provides options to customize Windows Start Menu and Taskbar
+#   - Option 1 (Clean): Removes unnecessary taskbar icons, widgets, and search
+#     - Pins only File Explorer to taskbar
+#     - Removes Windows Widgets, Copilot, Chat, Meet Now, and other default icons
+#     - Configures a minimalist taskbar and start menu layout
+#   - Option 2 (Default): Restores default Windows taskbar and start menu configuration
+#   - Requires administrative privileges
+#   - Modifies registry settings to apply changes
+#   - Supports both Windows 10 and Windows 11
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

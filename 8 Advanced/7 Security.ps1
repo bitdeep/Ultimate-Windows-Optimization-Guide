@@ -1,3 +1,29 @@
+<# 
+.SYNOPSIS
+    Windows Security Configuration Script
+
+.DESCRIPTION
+    This PowerShell script provides an interactive way to disable or enable 
+    various Windows security features, including:
+    - Windows Defender settings
+    - SmartScreen
+    - Defender Services and Drivers
+    - Windows Defender Firewall
+    - User Account Control (UAC)
+    - Spectre and Meltdown protections
+    - Data Execution Prevention
+    - PowerShell Script Execution Policy
+    - Open File Security Warnings
+
+    WARNING: Disabling security features can leave your system vulnerable to 
+    malware, viruses, and other security threats. Use with extreme caution.
+
+.NOTES
+    - Requires Administrator Privileges
+    - Uses Safe Mode for configuration changes
+    - Modifies Windows Registry
+#>
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

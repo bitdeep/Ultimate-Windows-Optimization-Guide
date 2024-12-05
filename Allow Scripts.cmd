@@ -1,3 +1,21 @@
+:: ========================================================
+:: Windows PowerShell Script Execution Policy Manager
+:: ========================================================
+:: This script manages PowerShell execution policies and file blocking:
+:: 
+:: Option 1 (Recommended):
+:: - Enables PowerShell script execution
+:: - Allows double-clicking .ps1 files to run them
+:: - Unblocks all files in the current directory
+::
+:: Option 2:
+:: - Disables PowerShell script execution
+:: - Removes ability to double-click .ps1 files
+:: - Restores default restricted security settings
+::
+:: Note: Requires administrative privileges to run
+:: ========================================================
+
     @echo off
     >nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
     if '%errorlevel%' NEQ '0' (

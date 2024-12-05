@@ -1,3 +1,24 @@
+<# 
+.SYNOPSIS
+    Windows Services Configuration Script
+
+.DESCRIPTION
+    This PowerShell script allows users to modify Windows services startup configuration.
+    It provides two main options:
+    1. Services: Off - Disables most non-essential Windows services to reduce system overhead
+    2. Services: Default - Restores default service startup configurations
+
+    Key Features:
+    - Requires administrative privileges
+    - Warns users about potential system functionality issues
+    - Creates registry files to modify service startup types
+    - Supports safe mode boot for configuration changes
+    - Automatically restarts the system after applying changes
+
+.NOTES
+    Caution: Disabling services may impact system stability and certain functionalities.
+    Recommended to use with careful consideration and understanding of service roles.
+#>
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

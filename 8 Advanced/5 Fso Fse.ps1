@@ -1,3 +1,14 @@
+# Script: Fullscreen Optimization (FSO) and Fullscreen Exclusive (FSE) Configuration
+# Purpose: Allows users to toggle between two Windows game display modes
+# - Fullscreen Optimizations (FSO): Default Windows game display mode
+# - Fullscreen Exclusive (FSE): Provides more direct GPU access for potentially better performance
+# 
+# Notes:
+# - Requires Administrator privileges
+# - Modifies Windows Registry settings for game display behavior
+# - FSE may not work with DX12 game engines
+# - Provides user-friendly menu to select display mode
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

@@ -1,4 +1,24 @@
-    If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
+<#
+.SYNOPSIS
+    Enables or Disables MSI (Message Signaled Interrupt) Mode for GPU Devices
+
+.DESCRIPTION
+    This PowerShell script allows users to toggle MSI Mode for all display devices in the system.
+    MSI Mode can potentially improve GPU interrupt handling and reduce system latency.
+
+    - Option 1: Enables MSI Mode (Recommended for most systems)
+    - Option 2: Disables MSI Mode
+
+    The script requires administrative privileges and will prompt for elevation if not run as admin.
+    Changes require a system restart to take effect.
+
+.NOTES
+    - Modifies Windows Registry
+    - Affects all detected display devices
+    - Requires careful use as it can impact system stability
+#>
+
+If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}
     $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"

@@ -1,3 +1,14 @@
+# Script: NVIDIA High-Bandwidth Digital Content Protection (HDCP) Toggle
+# Purpose: Allows users to enable or disable HDCP for NVIDIA graphics drivers
+# Description: 
+#   - Provides an option to turn HDCP on or off via registry modification
+#   - Requires administrator privileges
+#   - Modifies registry keys for NVIDIA GPU driver class
+#   - Requires system restart to apply changes
+#   - Options:
+#     1. Off: Disables HDCP by setting RMHdcpKeyglobZero to 1
+#     2. Default: Enables HDCP by setting RMHdcpKeyglobZero to 0
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

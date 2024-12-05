@@ -1,3 +1,13 @@
+# Script: Controller Polling Rate Configuration
+# Purpose: Automatically downloads and launches Gamepadla, a tool for configuring 
+#          controller polling rates and improving controller performance
+# Author: Unknown
+# Version: 1.0
+# Notes: 
+#   - Requires administrative privileges
+#   - Downloads Gamepadla.exe from GitHub
+#   - Launches Gamepadla for user configuration
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

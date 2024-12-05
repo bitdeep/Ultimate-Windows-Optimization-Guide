@@ -1,3 +1,31 @@
+<#
+.SYNOPSIS
+    Installs DirectX and 7-Zip utilities for Windows system graphics and compression support.
+
+.DESCRIPTION
+    This PowerShell script performs the following actions:
+    - Ensures the script runs with Administrator privileges
+    - Customizes PowerShell console appearance
+    - Downloads and installs the latest version of 7-Zip
+    - Downloads the DirectX June 2010 Redistributable
+    - Extracts DirectX installation files
+    - Launches the DirectX setup utility
+
+.NOTES
+    - Requires internet connection
+    - Requires administrative privileges
+    - Downloads files to temporary directory
+    - Uses custom download function with progress bar
+    - Automatically closes after installation
+
+.LINK
+    DirectX Download: https://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe
+    7-Zip Download: https://www.7-zip.org/a/7z2301-x64.exe
+
+.EXAMPLE
+    Run the script directly, it will elevate to admin and perform installation
+#>
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

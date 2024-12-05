@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    Allows toggling of Windows Start Menu, Search, and Shell functionality
+
+.DESCRIPTION
+    This PowerShell script provides two modes for Windows system components:
+    1. Start Search Shell: Off - Disables start menu, search, shell, and mobsync
+    2. Start Search Shell: Default - Restores default system functionality
+
+    Cautions:
+    - Disabling these components may cause system instability
+    - Wi-Fi and Bluetooth functionality may be impacted
+    - Recommended to create a restore point before making changes
+    - Use with caution and only if you understand the potential risks
+
+.NOTES
+    - Requires Administrator privileges
+    - Modifies system registry and moves system application folders
+    - Stops and restarts explorer.exe
+#>
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

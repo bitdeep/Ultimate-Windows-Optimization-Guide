@@ -1,3 +1,10 @@
+# Network Adapter Configuration Script
+# Purpose: Allows users to quickly modify network adapter settings
+# - Option 1: Disable most network adapter bindings, keeping only IPv4 enabled
+# - Option 2: Restore default network adapter settings
+# Provides a simple interface to toggle network adapter configurations
+# Requires administrative privileges to run
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

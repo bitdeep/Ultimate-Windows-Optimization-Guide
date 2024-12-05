@@ -1,3 +1,10 @@
+# Script: Signout and Lockscreen Customization
+# Description: Allows users to modify the Windows lockscreen appearance
+# - Option 1: Sets a solid black lockscreen background
+# - Option 2: Restores default lockscreen settings
+# Requires Administrator privileges
+# Usage: Run the script and select an option (1 or 2)
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

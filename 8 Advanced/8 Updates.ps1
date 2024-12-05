@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    Windows Update Configuration Script
+
+.DESCRIPTION
+    This PowerShell script allows users to quickly toggle Windows Update settings between two modes:
+    1. Updates: Off - Completely disables Windows Update through Group Policy settings
+    2. Updates: Default - Restores default Windows Update configuration
+
+.NOTES
+    - Requires administrative privileges
+    - Uses Local Group Policy Object (LGPO) utility to modify update settings
+    - Provides a simple interface for managing Windows Update behavior
+    - Automatically downloads LGPO tool from Microsoft
+    - Requires system restart to fully apply changes
+
+.EXAMPLE
+    Run the script and choose option 1 to disable updates
+    Run the script and choose option 2 to restore default update settings
+#>
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

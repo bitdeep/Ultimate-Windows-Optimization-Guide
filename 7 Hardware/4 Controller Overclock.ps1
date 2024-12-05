@@ -1,3 +1,13 @@
+# Controller Overclock Script
+# Purpose: Provides options for USB controller optimization and overclocking
+# Options:
+# 1. Enable USB overclock with Secure Boot (modifies registry)
+# 2. Revert USB overclock settings to default
+# 3. Open download link for controller overclocking tool (hidusbf)
+# 
+# Requires Administrator privileges
+# Caution: Changes may require system restart
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

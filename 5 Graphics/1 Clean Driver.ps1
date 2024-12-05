@@ -1,45 +1,72 @@
-    If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
-    {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
-    Exit}
-    $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
-    $Host.UI.RawUI.BackgroundColor = "Black"
-	$Host.PrivateData.ProgressBackgroundColor = "Black"
-    $Host.PrivateData.ProgressForegroundColor = "White"
-    Clear-Host
+<#
+.SYNOPSIS
+    Prepares system for a clean graphics driver installation by using Display Driver Uninstaller (DDU)
 
-    function Get-FileFromWeb {
-    param ([Parameter(Mandatory)][string]$URL, [Parameter(Mandatory)][string]$File)
-    function Show-Progress {
-    param ([Parameter(Mandatory)][Single]$TotalValue, [Parameter(Mandatory)][Single]$CurrentValue, [Parameter(Mandatory)][string]$ProgressText, [Parameter()][int]$BarSize = 10, [Parameter()][switch]$Complete)
-    $percent = $CurrentValue / $TotalValue
-    $percentComplete = $percent * 100
-    if ($psISE) { Write-Progress "$ProgressText" -id 0 -percentComplete $percentComplete }
-    else { Write-Host -NoNewLine "`r$ProgressText $(''.PadRight($BarSize * $percent, [char]9608).PadRight($BarSize, [char]9617)) $($percentComplete.ToString('##0.00').PadLeft(6)) % " }
-    }
-    try {
-    $request = [System.Net.HttpWebRequest]::Create($URL)
-    $response = $request.GetResponse()
-    if ($response.StatusCode -eq 401 -or $response.StatusCode -eq 403 -or $response.StatusCode -eq 404) { throw "Remote file either doesn't exist, is unauthorized, or is forbidden for '$URL'." }
-    if ($File -match '^\.\\') { $File = Join-Path (Get-Location -PSProvider 'FileSystem') ($File -Split '^\.')[1] }
-    if ($File -and !(Split-Path $File)) { $File = Join-Path (Get-Location -PSProvider 'FileSystem') $File }
-    if ($File) { $fileDirectory = $([System.IO.Path]::GetDirectoryName($File)); if (!(Test-Path($fileDirectory))) { [System.IO.Directory]::CreateDirectory($fileDirectory) | Out-Null } }
-    [long]$fullSize = $response.ContentLength
-    [byte[]]$buffer = new-object byte[] 1048576
-    [long]$total = [long]$count = 0
-    $reader = $response.GetResponseStream()
-    $writer = new-object System.IO.FileStream $File, 'Create'
-    do {
-    $count = $reader.Read($buffer, 0, $buffer.Length)
-    $writer.Write($buffer, 0, $count)
-    $total += $count
-    if ($fullSize -gt 0) { Show-Progress -TotalValue $fullSize -CurrentValue $total -ProgressText " $($File.Name)" }
-    } while ($count -gt 0)
-    }
-    finally {
-    $reader.Close()
-    $writer.Close()
-    }
-    }
+.DESCRIPTION
+    This script performs several key actions to facilitate a clean graphics driver removal and reinstallation:
+    - Checks and elevates to Administrator privileges
+    - Downloads Display Driver Uninstaller (DDU)
+    - Configures DDU with specific settings to thoroughly remove graphics drivers
+    - Prevents Windows Update from automatically installing drivers
+    - Creates desktop shortcuts for:
+        1. Safe Mode Toggle (msconfig)
+        2. Display Driver Uninstaller
+    - Configures system to boot into Safe Mode for driver removal
+    - Automatically restarts the system
+
+.NOTES
+    - Requires administrative privileges
+    - Downloads DDU from a specific GitHub repository
+    - Modifies system registry to prevent automatic driver downloads
+    - Prepares system for manual graphics driver removal and reinstallation
+
+.LINK
+    https://www.guru3d.com/files-details/display-driver-uninstaller-download.html
+#>
+
+If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
+{Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
+    Exit}
+
+$Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
+$Host.UI.RawUI.BackgroundColor = "Black"
+$Host.PrivateData.ProgressBackgroundColor = "Black"
+$Host.PrivateData.ProgressForegroundColor = "White"
+Clear-Host
+
+function Get-FileFromWeb {
+param ([Parameter(Mandatory)][string]$URL, [Parameter(Mandatory)][string]$File)
+function Show-Progress {
+param ([Parameter(Mandatory)][Single]$TotalValue, [Parameter(Mandatory)][Single]$CurrentValue, [Parameter(Mandatory)][string]$ProgressText, [Parameter()][int]$BarSize = 10, [Parameter()][switch]$Complete)
+$percent = $CurrentValue / $TotalValue
+$percentComplete = $percent * 100
+if ($psISE) { Write-Progress "$ProgressText" -id 0 -percentComplete $percentComplete }
+else { Write-Host -NoNewLine "`r$ProgressText $(''.PadRight($BarSize * $percent, [char]9608).PadRight($BarSize, [char]9617)) $($percentComplete.ToString('##0.00').PadLeft(6)) % " }
+}
+try {
+$request = [System.Net.HttpWebRequest]::Create($URL)
+$response = $request.GetResponse()
+if ($response.StatusCode -eq 401 -or $response.StatusCode -eq 403 -or $response.StatusCode -eq 404) { throw "Remote file either doesn't exist, is unauthorized, or is forbidden for '$URL'." }
+if ($File -match '^\.\\') { $File = Join-Path (Get-Location -PSProvider 'FileSystem') ($File -Split '^\.')[1] }
+if ($File -and !(Split-Path $File)) { $File = Join-Path (Get-Location -PSProvider 'FileSystem') $File }
+if ($File) { $fileDirectory = $([System.IO.Path]::GetDirectoryName($File)); if (!(Test-Path($fileDirectory))) { [System.IO.Directory]::CreateDirectory($fileDirectory) | Out-Null } }
+[long]$fullSize = $response.ContentLength
+[byte[]]$buffer = new-object byte[] 1048576
+[long]$total = [long]$count = 0
+$reader = $response.GetResponseStream()
+$writer = new-object System.IO.FileStream $File, 'Create'
+do {
+$count = $reader.Read($buffer, 0, $buffer.Length)
+$writer.Write($buffer, 0, $count)
+$total += $count
+if ($fullSize -gt 0) { Show-Progress -TotalValue $fullSize -CurrentValue $total -ProgressText " $($File.Name)" }
+} while ($count -gt 0)
+}
+finally {
+$reader.Close()
+$writer.Close()
+}
+}
 
 Write-Host "Installing: DDU . . ."
 # download ddu

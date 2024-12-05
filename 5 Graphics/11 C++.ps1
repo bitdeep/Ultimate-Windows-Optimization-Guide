@@ -1,3 +1,26 @@
+<#
+.SYNOPSIS
+    Installs Microsoft Visual C++ Redistributable Packages for multiple versions
+
+.DESCRIPTION
+    This PowerShell script downloads and silently installs Microsoft Visual C++ Redistributable Packages 
+    for both x86 and x64 architectures across multiple versions (2005-2022).
+
+    Versions installed:
+    - Visual C++ Redistributable 2005 (x86 and x64)
+    - Visual C++ Redistributable 2008 (x86 and x64)
+    - Visual C++ Redistributable 2010 (x86 and x64)
+    - Visual C++ Redistributable 2012 (x86 and x64)
+    - Visual C++ Redistributable 2013 (x86 and x64)
+    - Visual C++ Redistributable 2015/2017/2019/2022 (x86 and x64)
+
+.NOTES
+    - Requires Administrator privileges
+    - Downloads installers to %TEMP% directory
+    - Uses silent/passive installation mode
+    - Supports both 32-bit and 64-bit system architectures
+#>
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

@@ -1,3 +1,20 @@
+<#
+.SYNOPSIS
+    RAM Configuration Check Script
+
+.DESCRIPTION
+    This script helps verify proper RAM configuration by:
+    - Installing and launching CPU-Z for hardware inspection
+    - Providing a checklist for RAM setup verification including:
+        * XMP/DOCP/EXPO profile enablement status
+        * RAM slot placement
+        * Module compatibility
+        * Dual channel configuration
+
+.NOTES
+    Requires administrator privileges to run
+    Uses CPU-Z for hardware inspection
+#>
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

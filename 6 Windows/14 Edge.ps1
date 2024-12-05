@@ -1,3 +1,19 @@
+<# 
+.SYNOPSIS
+    Microsoft Edge Management Script
+
+.DESCRIPTION
+    This PowerShell script provides options to manage Microsoft Edge browser:
+    - Option 1: Completely uninstall Microsoft Edge, including updates, WebView, and related components
+    - Option 2: Reinstall and update Microsoft Edge to the latest stable version, 
+      including Copilot, Edge WebView, and recreating desktop/taskbar shortcuts
+
+.NOTES
+    - Requires Administrator privileges
+    - Stops related processes before installation/uninstallation
+    - Modifies registry settings
+    - Automatically opens uBlock Origin addon page after installation
+#>
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

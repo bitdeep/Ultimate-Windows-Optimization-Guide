@@ -1,3 +1,23 @@
+<#
+.SYNOPSIS
+    Manages NVIDIA GPU Power State (P0 State) settings
+
+.DESCRIPTION
+    This script allows users to toggle the NVIDIA GPU's power state between:
+    - P0 State On: Forces the GPU to remain at its highest performance state
+    - Default: Allows dynamic power state management
+
+    The script:
+    - Requires administrator privileges
+    - Modifies registry settings for NVIDIA GPU drivers
+    - Requires a system restart to apply changes
+
+.NOTES
+    - Affects all NVIDIA GPUs in the system
+    - Changes are made via registry modification
+    - Restart is necessary to fully apply the settings
+#>
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

@@ -1,3 +1,25 @@
+<#
+.SYNOPSIS
+    Enables Loudness Equalization (EQ) for Windows audio playback devices
+
+.DESCRIPTION
+    This script provides an interactive way to enable Loudness Equalization for audio devices:
+    - Opens Sound Control Panel
+    - Allows user to choose whether to enable Loudness EQ
+    - Creates a temporary PowerShell script to modify Windows Registry settings
+    - Enables Loudness Equalization for specified playback devices
+    - Handles potential errors and provides guidance for troubleshooting
+
+.NOTES
+    - Requires administrative privileges
+    - Modifies Windows Registry
+    - Restarts Audio Service after changes
+    - Provides fallback options if EQ configuration fails
+
+.EXAMPLE
+    Run the script and follow the on-screen prompts to enable Loudness EQ
+#>
+
     $Host.UI.RawUI.BackgroundColor = "Black"
 	$Host.PrivateData.ProgressBackgroundColor = "Black"
     $Host.PrivateData.ProgressForegroundColor = "White"

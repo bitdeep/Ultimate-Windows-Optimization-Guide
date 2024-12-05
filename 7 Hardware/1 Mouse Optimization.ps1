@@ -1,3 +1,15 @@
+# Script: Mouse Optimization
+# Description: 
+#   - Downloads and launches Mouse Movement Recorder tool
+#   - Provides guidance and best practices for mouse configuration
+#   - Offers recommendations for:
+#     * Optimal mouse dongle placement
+#     * Disabling angle snapping
+#     * Polling rate settings
+#     * DPI configuration
+#     * Gaming-specific mouse settings
+#   - Helps users improve mouse performance and reduce input latency
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

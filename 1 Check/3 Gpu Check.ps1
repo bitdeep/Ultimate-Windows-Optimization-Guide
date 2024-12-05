@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    GPU verification and configuration check script.
+
+.DESCRIPTION
+    This script performs essential GPU checks by:
+    - Installing and launching GPU-Z diagnostic tool
+    - Prompting user to verify:
+        * PCIe bus interface is running at maximum speed
+        * Monitor is properly connected to the GPU
+        * GPU is installed in the primary PCIe slot
+        * Single GPU configuration (recommended)
+    
+    The script requires administrative privileges and will auto-elevate if needed.
+
+.NOTES
+    - Requires internet connection to download GPU-Z
+    - Part of the Ultimate Windows Optimization Guide
+    - Runs with elevated privileges
+#>
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

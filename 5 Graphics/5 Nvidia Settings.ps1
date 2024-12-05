@@ -1,3 +1,24 @@
+<#
+.SYNOPSIS
+    Configures NVIDIA Graphics Settings and Profile
+
+.DESCRIPTION
+    This script allows users to choose between two NVIDIA graphics profile configurations:
+    1. Optimized Settings: Applies a custom set of recommended NVIDIA graphics settings
+       - Optimizes performance and visual quality
+       - Configures various graphics parameters like V-Sync, Anisotropic Filtering, etc.
+    2. Default Settings: Resets NVIDIA settings to their default configuration
+
+.NOTES
+    - Requires Administrator Privileges
+    - Uses NvidiaProfileInspector for profile modifications
+    - Opens NVIDIA Control Panel after configuration
+    - Temporary files are created in %TEMP% directory
+
+.AUTHOR
+    Original Script Author
+#>
+
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}

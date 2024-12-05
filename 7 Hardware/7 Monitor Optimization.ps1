@@ -1,4 +1,11 @@
-    If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
+# Monitor Optimization Script
+# Purpose: Provides guidance and opens TestUFO website for monitor performance optimization
+# - Elevates script to administrator privileges
+# - Opens TestUFO website for refresh rate and frame rate testing
+# - Displays recommended monitor optimization tips
+# - Includes console UI customization for better readability
+
+If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"))
     {Start-Process PowerShell.exe -ArgumentList ("-NoProfile -ExecutionPolicy Bypass -File `"{0}`"" -f $PSCommandPath) -Verb RunAs
     Exit}
     $Host.UI.RawUI.WindowTitle = $myInvocation.MyCommand.Definition + " (Administrator)"
